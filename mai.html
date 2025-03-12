@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>˚⋅˖* ⊱❀⊰ *˖⋅˚</title>
+  <!-- Google Fonts for premium typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <!-- GSAP for Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+  <style>
+    /* Reset & Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      overflow-x: hidden;
+      /* Reversed gradient: top: #afa2f7, bottom: #f0aac5 */
+      background: linear-gradient(to bottom, #afa2f7, #f0aac5);
+      padding-bottom: 80px;
+      text-align: center;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* OVERLAY (Initial full-screen overlay with clickable heart) */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffc0cb;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    #heartBtn {
+      width: 200px;
+      height: 200px;
+      transform-origin: 50% 50%;
+      animation: heartbeat 1.5s infinite;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25%, 75% { transform: scale(1.1); }
+      40%, 60% { transform: scale(1); }
+    }
+    #overlay p {
+      margin-top: 1.25rem;
+      color: #fff;
+      font-size: 1.25rem;
+      pointer-events: none;
+    }
+    
+    /* SECTIONS */
+    section {
+      padding: 3rem 1.25rem;
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* HERO SECTION (with Pink Lotus Flower) */
+    #hero h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4rem;
+      color: #e60073;
+      margin-bottom: 1.25rem;
+    }
+    #hero p {
+      font-size: 1.2rem;
+      margin-bottom: 1.875rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-btn {
+      padding: 0.9375rem 1.875rem;
+      font-size: 1.2rem;
+      background-color: #ff9acb; /* Matches the lotus color */
+      color: #fff;
+      border: none;
+      border-radius: 50px; /* Oval rectangle */
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .hero-btn:hover {
+      background-color: #ffb8d9;
+    }
+    
+    /* Flower (Pink Lotus) */
+    .bouquet {
+      width: 100%;
+      max-width: 350px;
+      margin: 0 auto 1.875rem;
+      transform: scale(0);
+      transform-origin: center;
+      cursor: pointer;
+    }
+    
+    /* LETTER SECTION - Envelope & Letter Overlay */
+    /* "Letter" heading removed */
+    #letter {
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+    /* New Love Envelope Design using SVG */
+    .envelope-container {
+      width: 90%;
+      max-width: 300px;
+      margin: 0 auto 1.875rem;
+      cursor: pointer;
+    }
+    /* The envelope is now an inline SVG for a more polished look */
+    .love-envelope {
+      width: 100%;
+      height: auto;
+    }
+    
+    /* Letter Overlay (hidden by default) */
+    .letter-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .letter-paper {
+      background: #fff;
+      width: 90%;
+      max-width: 500px;
+      padding: 2.5rem;
+      border-radius: 8px;
+      transform: translateY(50px) scale(0.8);
+      opacity: 0;
+      position: relative;
+      text-align: left;
+    }
+    .letter-paper h2 {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .letter-paper p {
+      margin-bottom: 1.25rem;
+    }
+    .letter-paper blockquote {
+      font-style: italic;
+      margin: 1.25rem 0;
+      padding-left: 1.25rem;
+      border-left: 3px solid #e60073;
+    }
+    .close-btn {
+      position: absolute;
+      top: 0.9375rem;
+      right: 0.9375rem;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #888;
+    }
+    .close-btn:hover {
+      color: #e60073;
+    }
+    
+    /* FOOTER */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #181818;
+      padding: 0.3125rem 0.625rem;
+      z-index: 2000;
+    }
+    .spotify-embed {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .spotify-embed iframe {
+      width: 100%;
+      height: 80px;
+      border: none;
+      border-radius: 12px;
+    }
+    
+    /* RESPONSIVE adjustments */
+    @media (max-width: 768px) {
+      #hero h1 {
+        font-size: 3.5rem;
+      }
+      #hero p, .hero-btn {
+        font-size: 1rem;
+      }
+      .envelope-container {
+        max-width: 220px;
+      }
+      .letter-paper {
+        padding: 2rem;
+      }
+    }
+    @media (max-width: 414px) {
+      #hero h1 {
+        font-size: 3rem;
+      }
+      #hero p, .hero-btn {
+        font-size: 0.9rem;
+      }
+      .envelope-container {
+        width: 90%;
+        max-width: 200px;
+      }
+      .letter-paper {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- OVERLAY -->
+  <div id="overlay">
+    <svg id="heartBtn" viewBox="0 0 200 200">
+      <rect x="0" y="0" width="200" height="200" fill="transparent" />
+      <circle cx="100" cy="100" r="70" fill="#fff" />
+      <path d="M100,70 C80,50, 40,70, 100,120 C160,70, 120,50, 100,70 Z" fill="#f62f5e" />
+    </svg>
+  </div>
+  
+  <!-- HERO SECTION (with Pink Lotus Flower) -->
+  <section id="hero">
+    <svg class="bouquet" id="bouquet" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="centerGradient" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffe66d" />
+          <stop offset="100%" stop-color="#ffcc00" />
+        </radialGradient>
+        <linearGradient id="petalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#ff9acb" />
+          <stop offset="100%" stop-color="#ffb8d9" />
+        </linearGradient>
+      </defs>
+      <g transform="translate(250,250)">
+        <g id="outer-petals">
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(0)" />
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(51.43)" />
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(102.86)" />
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(154.29)" />
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(205.72)" />
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(257.15)" />
+          <ellipse cx="0" cy="-110" rx="40" ry="70" fill="url(#petalGradient)" transform="rotate(308.58)" />
+        </g>
+        <g id="middle-petals">
+          <ellipse cx="0" cy="-70" rx="30" ry="55" fill="url(#petalGradient)" transform="rotate(0)" />
+          <ellipse cx="0" cy="-70" rx="30" ry="55" fill="url(#petalGradient)" transform="rotate(72)" />
+          <ellipse cx="0" cy="-70" rx="30" ry="55" fill="url(#petalGradient)" transform="rotate(144)" />
+          <ellipse cx="0" cy="-70" rx="30" ry="55" fill="url(#petalGradient)" transform="rotate(216)" />
+          <ellipse cx="0" cy="-70" rx="30" ry="55" fill="url(#petalGradient)" transform="rotate(288)" />
+        </g>
+        <g id="inner-petals">
+          <ellipse cx="0" cy="-40" rx="20" ry="35" fill="url(#petalGradient)" transform="rotate(0)" />
+          <ellipse cx="0" cy="-40" rx="20" ry="35" fill="url(#petalGradient)" transform="rotate(90)" />
+          <ellipse cx="0" cy="-40" rx="20" ry="35" fill="url(#petalGradient)" transform="rotate(180)" />
+          <ellipse cx="0" cy="-40" rx="20" ry="35" fill="url(#petalGradient)" transform="rotate(270)" />
+        </g>
+        <circle cx="0" cy="0" r="30" fill="url(#centerGradient)" />
+      </g>
+    </svg>
+
+    <h1>Happy 21st Birthday, My Love!</h1>
+    <p>This is a simple greetings website for you. I hope you like it and that it brings a little smile to your face. - Josh</p>
+    <button class="hero-btn" id="surpriseBtn">Click this! :></button>
+  </section>
+  
+  <!-- LETTER SECTION (Envelope & Animated Letter Overlay) -->
+  <section id="letter">
+    <div class="envelope-container" id="envelopeContainer">
+      <!-- New Love Envelope SVG -->
+      <svg class="love-envelope" viewBox="0 0 300 200" id="envelopeSVG">
+        <!-- Envelope Body -->
+        <rect x="10" y="50" width="280" height="130" rx="15" ry="15" fill="#f8f1e4" stroke="#e0c4a0" stroke-width="2" />
+        <!-- Envelope Flap -->
+        <polygon id="envelopeFlapSVG" points="10,50 150,10 290,50" fill="#f8f1e4" stroke="#e0c4a0" stroke-width="2" />
+        <!-- Heart Seal -->
+        <circle cx="150" cy="40" r="15" fill="#ff5e7e" />
+      </svg>
+    </div>
+    <div class="letter-overlay" id="letterOverlay">
+      <div class="letter-paper" id="letterPaper">
+        <button class="close-btn" id="closeLetterBtn">X</button>
+        <h2>Dear, Mai</h2>
+        <p>
+          Happy birthday, my babyy! When I think back to how we started, it's clear how much my life and perspective have changed. From those shy, hesitant first interactions, the awkward silences and hesitated talks, to the deep relationship we have now. As we grow older, we often face problems like arguing, miscommunications (small or big), and other things that can lead to a problem within us, but it doesn't mean that my love for you is going away or fading. I know our bond and relationship are bigger than any kind of problems that we faced and will be facing in the future.
+        </p>
+        <p>
+          Thank you for understanding, for trusting me, for loving me, and for changing my life in ways I never could have imagined. I hope that no matter how hard things get, no matter the challenges and problems we face, we still fight for each other. I hope all good things will come to you, do what makes you happy and I will support you and I promise I'm always here for you no matter what happens. Again, happy birthday. I love you more than you know.
+        </p>
+        <blockquote>
+          Forever yours,<br />
+          Josh
+        </blockquote>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer>
+    <div class="spotify-embed">
+      <iframe style="border-radius:12px"
+              src="https://open.spotify.com/embed/track/47isJpIIO8m7BJEhiFhnaf?utm_source=generator&autoplay=1"
+              width="100%" height="80" frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy">
+      </iframe>
+    </div>
+  </footer>
+  
+  <!-- JavaScript for Interactivity & GSAP Animations -->
+  <script>
+    // 1. Fade out the initial overlay when the heart is clicked
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("heartBtn").addEventListener("click", function(){
+        gsap.to("#overlay", {
+          duration: 0.7,
+          opacity: 0,
+          onComplete: function() {
+            document.getElementById("overlay").style.display = "none";
+          }
+        });
+      });
+    });
+    
+    // 2. "Surprise Me!" button: animate the flower and launch floating hearts
+    const surpriseBtn = document.getElementById("surpriseBtn");
+    surpriseBtn.addEventListener("click", () => {
+      gsap.to("#bouquet", {
+        duration: 1,
+        scale: 1.2,
+        ease: "elastic.out(1, 0.5)",
+        onComplete: function() {
+          gsap.to("#bouquet", { duration: 0.5, scale: 1 });
+        }
+      });
+      for (let i = 0; i < 20; i++) {
+        createHeart();
+      }
+    });
+    
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.innerHTML = `
+        <svg viewBox="0 0 32 29.6" width="32" height="29.6">
+          <path fill="#f62f5e"
+            d="M23.6,0c-2.7,0-5,1.4-6.6,3.5C15.4,1.4,13.1,0,10.4,0C4.7,0,0,4.7,0,10.4
+               c0,4.3,2.7,8.2,6.7,10.2c3.8,1.9,8.5,4.8,8.5,4.8s4.7-2.9,8.5-4.8C29.3,18.6,32,14.7,32,10.4
+               C32,4.7,27.3,0,23.6,0z"/>
+        </svg>`;
+      heart.style.position = "fixed";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100vh";
+      heart.style.pointerEvents = "none";
+      document.body.appendChild(heart);
+    
+      gsap.to(heart, {
+        duration: 3 + Math.random() * 2,
+        y: -window.innerHeight,
+        ease: "power1.out",
+        opacity: 0,
+        onComplete: () => { heart.remove(); }
+      });
+    }
+    
+    // 3. Envelope to Letter Overlay Animation using GSAP
+    const envelopeContainer = document.getElementById('envelopeContainer');
+    const envelopeFlapSVG = document.getElementById('envelopeFlapSVG');
+    const letterOverlay = document.getElementById('letterOverlay');
+    const letterPaper = document.getElementById('letterPaper');
+    const closeLetterBtn = document.getElementById('closeLetterBtn');
+    
+    // Timeline for opening the letter
+    const openLetterTL = gsap.timeline({ paused: true });
+    openLetterTL
+      .to(envelopeFlapSVG, {
+        duration: 0.6,
+        rotationX: 180,
+        transformOrigin: '50% 0%',
+        ease: 'power2.inOut'
+      })
+      .to(letterOverlay, {
+        duration: 0.4,
+        opacity: 1,
+        pointerEvents: 'auto',
+        ease: 'power2.inOut'
+      }, '-=0.2')
+      .to(letterPaper, {
+        duration: 0.6,
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        ease: 'back.out(1.4)'
+      }, '-=0.1');
+    
+    // Timeline for closing the letter
+    const closeLetterTL = gsap.timeline({ paused: true });
+    closeLetterTL
+      .to(letterPaper, {
+        duration: 0.4,
+        opacity: 0,
+        scale: 0.8,
+        y: 50,
+        ease: 'power2.inOut'
+      })
+      .to(letterOverlay, {
+        duration: 0.4,
+        opacity: 0,
+        pointerEvents: 'none',
+        ease: 'power2.inOut'
+      }, '-=0.2')
+      .to(envelopeFlapSVG, {
+        duration: 0.6,
+        rotationX: 0,
+        transformOrigin: '50% 0%',
+        ease: 'power2.inOut'
+      }, '-=0.1');
+    
+    envelopeContainer.addEventListener('click', () => {
+      openLetterTL.play(0);
+      // Additionally, create some hearts coming from the envelope
+      createEnvelopeHearts();
+    });
+    
+    closeLetterBtn.addEventListener('click', () => {
+      closeLetterTL.play(0);
+    });
+    
+    letterOverlay.addEventListener('click', (e) => {
+      if (e.target === letterOverlay) {
+        closeLetterTL.play(0);
+      }
+    });
+    
+    function createEnvelopeHearts() {
+      const container = document.getElementById('envelopeContainer');
+      const rect = container.getBoundingClientRect();
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = `
+          <svg viewBox="0 0 32 29.6" width="24" height="24">
+            <path fill="#f62f5e"
+              d="M23.6,0c-2.7,0-5,1.4-6.6,3.5C15.4,1.4,13.1,0,10.4,0C4.7,0,0,4.7,0,10.4
+                 c0,4.3,2.7,8.2,6.7,10.2c3.8,1.9,8.5,4.8,8.5,4.8s4.7-2.9,8.5-4.8C29.3,18.6,32,14.7,32,10.4
+                 C32,4.7,27.3,0,23.6,0z"/>
+          </svg>`;
+        heart.style.position = "fixed";
+        heart.style.left = (rect.left + rect.width / 2) + "px";
+        heart.style.top = (rect.top + rect.height / 2) + "px";
+        heart.style.pointerEvents = "none";
+        document.body.appendChild(heart);
+        gsap.to(heart, {
+          duration: 2 + Math.random() * 2,
+          x: (Math.random() - 0.5) * 200,
+          y: -Math.random() * 200,
+          opacity: 0,
+          ease: "power1.out",
+          onComplete: () => { heart.remove(); }
+        });
+      }
+    }
+  </script>
+</body>
+</html>
